@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOAMING · Barre & Wellness</title>
+<meta name="description" content="바레와 웰니스로 몸과 일상의 균형을 만드는 정다솜 (Soaming Jeong)">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --white: #ffffff;
+    --black: #0a0a0a;
+    --red: #e10600;
+    --gray: #6b6b6b;
+    --line: #e5e5e5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--black); font-family: "Pretendard", -apple-system, system-ui, sans-serif; line-height: 1.6; letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; }
+  img, video, iframe { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  section { padding: clamp(96px, 14vw, 160px) 0; }
+
+  .label { display: flex; align-items: center; gap: 10px; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 28px; }
+  .label::before { content: ""; width: 8px; height: 8px; background: var(--red); }
+  h2 { font-size: clamp(2rem, 4.6vw, 3.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.035em; }
+  .red { color: var(--red); }
+
+  /* Nav */
+  header.nav { position: fixed; inset: 0 0 auto; z-index: 10; color: var(--white); transition: background .3s, color .3s; }
+  header.nav.scrolled { background: var(--white); color: var(--black); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .logo { font-weight: 900; font-size: 1.15rem; letter-spacing: .04em; }
+  .logo b { color: var(--red); }
+  .nav ul { display: flex; gap: 32px; list-style: none; font-size: .9rem; font-weight: 500; }
+  .nav ul a:hover { color: var(--red); }
+  @media (max-width: 680px) { .nav ul { display: none; } }
+
+  /* Hero */
+  .hero { position: relative; height: 100svh; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; color: var(--white); background: var(--black); padding: 0; }
+  .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .75; }
+  /* 세로 영상: 600px 이상 화면에서는 왼쪽 글씨 / 오른쪽 영상 */
+  @media (min-width: 600px) {
+    .hero { --vw: min(calc(100svh * 9 / 16), 45vw); }
+    .hero video { left: auto; width: var(--vw); opacity: 1; }
+    .hero-text { width: auto; margin: 0; padding-left: max(16px, (100vw - 1200px) / 2); padding-right: calc(var(--vw) + 32px); }
+    .hero h1 { font-size: clamp(2.6rem, 7.5vw, 8.5rem); }
+  }
+  .hero .yt { position: absolute; top: 50%; left: 50%; width: max(100vw, 177.78svh); height: max(56.25vw, 100svh); transform: translate(-50%, -50%); border: 0; pointer-events: none; opacity: .7; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.55)); pointer-events: none; }
+  @media (min-width: 600px) { .hero::after { display: none; } }
+  .hero-text { position: relative; z-index: 1; padding-bottom: clamp(56px, 10vh, 100px); }
+  .hero h1 { font-size: clamp(3.2rem, 11vw, 9.5rem); font-weight: 900; line-height: .92; letter-spacing: -0.055em; }
+  .hero p { margin-top: 28px; font-size: clamp(1rem, 1.6vw, 1.15rem); color: rgba(255,255,255,.8); }
+  .sound { position: absolute; right: 16px; bottom: 24px; z-index: 2; background: none; border: 1px solid rgba(255,255,255,.6); color: var(--white); padding: 8px 16px; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; }
+  .sound:hover { background: var(--red); border-color: var(--red); }
+  @media (min-width: 760px) { .sound { right: 40px; bottom: 40px; } }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+  @media (min-width: 860px) { .about-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; } }
+  .portrait { aspect-ratio: 3/4; width: 100%; max-width: 420px; background: #f2f2f2; display: grid; place-items: center; color: var(--gray); font-size: .85rem; overflow: hidden; }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .about h2 { margin-bottom: 32px; font-size: clamp(1.9rem, 3.4vw, 2.8rem); }
+  .about p { color: var(--gray); margin-bottom: 14px; font-size: 1.02rem; }
+
+  /* Career */
+  .career { border-top: 1px solid var(--line); }
+  .career-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  @media (min-width: 860px) { .career-grid { grid-template-columns: 1fr 2fr; gap: 80px; } .career-head { position: sticky; top: 110px; align-self: start; } }
+  .timeline { list-style: none; border-top: 2px solid var(--black); }
+  .timeline li { display: grid; grid-template-columns: 88px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--line); transition: padding .25s; }
+  @media (min-width: 560px) { .timeline li { grid-template-columns: 140px 1fr; } }
+  .timeline li:hover { padding-left: 8px; }
+  .timeline li:hover .year { color: var(--red); }
+  .timeline .year { font-weight: 700; font-size: 1rem; transition: color .25s; }
+  .timeline h3 { font-size: 1.1rem; font-weight: 700; }
+  .timeline p { color: var(--gray); font-size: .94rem; margin-top: 2px; }
+
+  /* Portfolio */
+  .film { background: var(--black); color: var(--white); }
+  .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
+  .videos video, .videos .empty { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #1a1a1a; }
+  .album { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 12px; margin-top: 72px; }
+  @media (min-width: 900px) { .album { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  .set { display: block; width: 100%; padding: 0; background: none; border: 0; color: var(--white); font: inherit; text-align: left; cursor: pointer; }
+  .set img { width: 100%; aspect-ratio: 3/4; object-fit: cover; transition: opacity .25s; }
+  .set:hover img { opacity: .75; }
+  .set strong { display: block; margin-top: 12px; font-size: .95rem; font-weight: 700; line-height: 1.35; }
+  .set span { display: block; margin-top: 2px; font-size: .82rem; color: rgba(255,255,255,.6); }
+
+  /* Photo viewer */
+  .lightbox { position: fixed; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 56px 16px 72px; background: rgba(0,0,0,.94); color: var(--white); }
+  .lightbox[hidden] { display: none; }
+  .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .lightbox button { position: absolute; background: none; border: 0; color: var(--white); font: inherit; cursor: pointer; }
+  .lightbox button:hover { color: var(--red); }
+  .lb-close { top: 12px; right: 16px; font-size: 2rem; line-height: 1; padding: 4px 8px; }
+  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); font-size: 2.6rem; line-height: 1; padding: 16px 12px; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+  .lb-prev { left: 4px; }
+  .lb-next { right: 4px; }
+  .lb-info { position: absolute; left: 16px; right: 16px; bottom: 20px; text-align: center; font-size: .9rem; }
+
+  /* Programs */
+  .programs-intro { margin-top: 20px; font-size: clamp(1rem, 1.6vw, 1.15rem); color: var(--gray); max-width: 40em; }
+  .program-head { display: none; }
+  .program-list { list-style: none; border-top: 2px solid var(--black); }
+  .program-list li { display: grid; grid-template-columns: 1fr; gap: 6px 40px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  @media (min-width: 760px) {
+    .program-head, .program-list li { grid-template-columns: 80px 1fr 1.4fr; }
+    .program-head { display: grid; gap: 40px; margin-top: 56px; padding-bottom: 12px; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    .program-head span:first-child { grid-column: 2; }
+    .program-list li { align-items: baseline; }
+  }
+  @media (max-width: 759px) { .program-list { margin-top: 48px; } }
+  .program-list .no { font-weight: 700; color: var(--red); }
+  .program-list h3 { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; }
+  .program-list p { color: var(--gray); }
+
+  .extra { display: grid; grid-template-columns: 1fr; gap: 24px 80px; margin-top: 72px; }
+  @media (min-width: 860px) { .extra { grid-template-columns: 1fr 3fr; } }
+  .extra h3 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.03em; }
+  .extra-sub { margin-top: 4px; color: var(--gray); font-size: .95rem; }
+  .tiles { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (min-width: 760px) { .tiles { grid-template-columns: repeat(4, 1fr); } }
+  .tiles li { padding: 18px 16px; border: 1px solid var(--black); font-weight: 700; line-height: 1.35; }
+  .tiles li span { display: block; margin-top: 4px; font-size: .85rem; font-weight: 400; color: var(--gray); }
+  .steps { list-style: none; display: grid; grid-template-columns: 1fr; gap: 28px; }
+  .steps li { position: relative; padding: 18px 16px; background: var(--black); color: var(--white); font-weight: 700; line-height: 1.35; }
+  .steps li:not(:last-child)::after { content: "↓"; position: absolute; left: 16px; bottom: -26px; color: var(--red); font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
+  @media (min-width: 760px) {
+    .steps { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .steps li:not(:last-child)::after { content: "→"; left: auto; right: -25px; bottom: auto; top: 50%; transform: translateY(-50%); }
+  }
+
+  /* Contact */
+  .contact { background: var(--red); color: var(--white); }
+  .contact h2 { font-size: clamp(2.6rem, 8vw, 6.5rem); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
+  .contact p { margin: 24px 0 40px; opacity: .9; }
+  .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn { display: inline-block; padding: 14px 28px; background: var(--white); color: var(--black); font-weight: 700; font-size: .95rem; border: 1px solid var(--white); transition: background .2s, color .2s; }
+  .btn:hover, .btn.ghost { background: transparent; color: var(--white); }
+  .btn.ghost:hover { background: var(--white); color: var(--black); }
+  footer { padding: 28px 0; font-size: .8rem; color: var(--gray); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">SOAMING<b>.</b></a>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#classes">Classes</a></li>
+      <li><a href="#film">Portfolio</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ① HERO: 아래 스크립트의 HERO_YOUTUBE에 유튜브 ID를 넣거나, assets/hero.mp4 파일을 넣으면 배경으로 자동 재생돼요 -->
+<section class="hero" id="top">
+  <video id="heroVideo" autoplay muted loop playsinline poster="assets/hero-poster.jpg">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="wrap hero-text">
+    <h1>Movement<span class="red">.</span><br>Wellness<span class="red">.</span><br>Balance<span class="red">.</span></h1>
+    <p>Wellness Entrepreneur, Soaming Jeong</p>
+  </div>
+  <button class="sound" id="soundBtn" aria-label="소리 켜기">SOUND ON</button>
+</section>
+
+<!-- ② ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="portrait reveal">
+        <img src="assets/profile.jpg" alt="정다솜 프로필">
+      </div>
+      <div class="reveal">
+        <div class="label">About</div>
+        <h2><span class="red">Good energy</span> is my gift.<br>Barre is how I share it.</h2>
+        <p>I did ballet for six years growing up, and in high school in the States, I was on the cheer dance team and ran sprints on the track team. I’ve been lifting for ten years now, and I’ve dabbled in just about everything along the way: Pilates, group classes like F45, boxing, swimming, rowing. Then I found barre, and I got certified to teach it.</p>
+        <p>I teach in English so people from all walks of life can take class together, and I teach in Korean too. But my classes go beyond barre. Alongside the movement, I make space to look inward, through journaling, stress relief, and taking care of your mind.</p>
+        <p>I’ve worked across marketing, education, sales, business development, and community building at a foundation, startups, and established companies. Today, I bring all of that into designing classes with brands and companies.</p>
+        <p>Next, I want to build a wellness community that spreads good energy to more people and helps everyone find their way back to themselves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③ CLASSES: 연도/제목/설명만 바꾸면 돼요. li 블록을 복사해서 늘리거나 지우세요 -->
+<section class="career" id="classes">
+  <div class="wrap career-grid">
+    <div class="career-head reveal">
+      <h2>Classes<span class="red">.</span></h2>
+    </div>
+    <div>
+      <ol class="timeline">
+        <li class="reveal"><span class="year red">Coming December 2026</span><div><h3>Egattoc x SOAMING Barre Class</h3><p>A one-day barre class with Egattoc, a wellness brand based in Jeju.</p></div></li>
+        <li class="reveal"><span class="year">2026</span><div><h3>AYWA x Conch x Crycheeseburger: “Meeting Yourself Through Movement”</h3><p>I pitched this collaboration to AYWA, a yoga studio in Pangyo, and ran the whole thing end to end: program design, brand partnerships, participant recruitment, bringing in guest instructors, and day-of operations.</p></div></li>
+        <li class="reveal"><span class="year">2026</span><div><h3>Barre for the Global Community</h3><p>Right before Chuseok, I brought together people from abroad living in Korea for a barre class. A restaurant in Yangjae let us use their third-floor space, and we wrapped up with a networking session after class.</p></div></li>
+        <li class="reveal"><span class="year">2026</span><div><h3>Barre One-Day Class</h3><p>An intimate class with eight participants. I handled everything from planning and recruiting to teaching.</p></div></li>
+        <li class="reveal"><span class="year">2023</span><div><h3>Online Workout Session in the Metaverse</h3><p>Back when the metaverse was all the buzz, I led a workout session in a virtual space.</p></div></li>
+        <li class="reveal"><span class="year">2019</span><div><h3>Girls, Let’s Workout</h3><p>A six-month sculpt and mat Pilates group I created and ran, with 24 women.</p></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ④ PORTFOLIO: 아래 스크립트의 VIDEOS, ALBUMS 목록에 파일명을 추가하세요 -->
+<section class="film" id="film">
+  <div class="wrap">
+    <div class="videos" id="videos"></div>
+    <div class="album" id="album"></div>
+  </div>
+</section>
+
+<!-- ⑤ PROGRAMS -->
+<section id="programs">
+  <div class="wrap">
+    <div class="label">Programs</div>
+    <h2>Programs, Built Around <span class="red">You</span></h2>
+    <p class="programs-intro">Every program starts with your goals and your people. I’ll design the rest around them.</p>
+
+    <div class="program-head"><span>Who it’s for</span><span>What it looks like</span></div>
+    <ul class="program-list">
+      <li class="reveal"><span class="no">01</span><h3>Corporate Wellness</h3><p>Barre for employee well-being, team-building workshops, and more.</p></li>
+      <li class="reveal"><span class="no">02</span><h3>Local Government &amp; Public Sector</h3><p>Wellness programs and talks for residents, international communities, and staff.</p></li>
+      <li class="reveal"><span class="no">03</span><h3>Brands &amp; Communities</h3><p>Pop-up classes and wellness events, handled start to finish.</p></li>
+      <li class="reveal"><span class="no">04</span><h3>Barre Classes</h3><p>One-day classes for individuals, in English and Korean. All levels welcome.</p></li>
+    </ul>
+
+    <div class="extra reveal">
+      <div><h3>Build Your Own</h3><p class="extra-sub">Mix and match what works for you.</p></div>
+      <ul class="tiles">
+        <li>Barre<span>50 min</span></li>
+        <li>Mind Session<span>Journaling, stress relief</span></li>
+        <li>Networking</li>
+        <li>Wellness Talk</li>
+      </ul>
+    </div>
+
+    <div class="extra reveal">
+      <div><h3>How It Works</h3></div>
+      <ol class="steps">
+        <li>Discovery Call</li>
+        <li>Custom Plan</li>
+        <li>Program Day</li>
+        <li>Wrap-Up Report</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap reveal">
+    <h2>Let’s move<br>together.</h2>
+    <p>Whether it’s a program for your team or a class just for you, I’d love to hear from you.</p>
+    <div class="btns">
+      <a class="btn" href="mailto:soamingbarre@gmail.com">Email: soamingbarre@gmail.com</a>
+      <a class="btn ghost" href="https://www.instagram.com/soaming/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <img id="lbImg" alt="">
+  <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+  <button class="lb-next" id="lbNext" aria-label="Next photo">›</button>
+  <p class="lb-info" id="lbInfo"></p>
+</div>
+
+<footer><div class="wrap">© 2026 SOAMING · 정다솜</div></footer>
+
+<script>
+  // 포트폴리오 영상: assets/portfolio 폴더에 영상을 넣고 파일명을 추가하세요. 비어 있으면 빈 칸으로 보여요
+  const VIDEOS = ["video1.mp4", "video2.mp4", "video3.mp4"];
+
+  document.getElementById("videos").innerHTML = VIDEOS.length
+    ? VIDEOS.map(f => `<video src="assets/portfolio/${f}" poster="assets/portfolio/${f.replace(".mp4", ".jpg")}" controls playsinline preload="metadata"></video>`).join("")
+    : '<div class="empty"></div>'.repeat(3);
+
+  // 사진첩: 클래스별 묶음. photos의 첫 번째 사진이 표지가 돼요. 사진은 assets/gallery 폴더에 넣고 파일명을 추가하세요
+  const ALBUMS = [
+    { title: "AYWA x Conch x Crycheeseburger", photos: ["photo19.jpg", "photo28.jpg", "photo27.jpg", "photo21.jpg", "photo22.jpg", "photo18.jpg"] },
+    { title: "Barre for the Global Community", photos: ["photo11.jpg", "photo10.jpg", "photo08.jpg", "photo09.jpg", "photo26.jpg", "photo12.jpg"] },
+    { title: "Barre One-Day Class", photos: ["photo02.jpg", "photo01.jpg", "photo25.jpg", "photo03.jpg", "photo04.jpg", "photo05.jpg"] },
+    { title: "Profile", photos: ["photo16.jpg", "photo14.jpg", "photo15.jpg", "photo17.jpg", "photo06.jpg", "photo29.jpg"] },
+  ];
+
+  const album = document.getElementById("album");
+  const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lbImg"), lbInfo = document.getElementById("lbInfo");
+  let current = null, index = 0, opener = null;
+  const show = i => {
+    index = (i + current.photos.length) % current.photos.length;
+    lbImg.src = `assets/gallery/${current.photos[index]}`;
+    lbInfo.textContent = `${current.title} · ${index + 1} / ${current.photos.length}`;
+  };
+  const closeBox = () => { lb.hidden = true; document.body.style.overflow = ""; opener?.focus(); };
+  ALBUMS.forEach(a => {
+    const b = document.createElement("button");
+    b.className = "set";
+    b.innerHTML = `<img src="assets/gallery/${a.photos[0]}" alt="" loading="lazy"><strong>${a.title}</strong><span>${a.photos.length} photos</span>`;
+    b.onclick = () => { current = a; opener = b; show(0); lb.hidden = false; document.body.style.overflow = "hidden"; document.getElementById("lbClose").focus(); };
+    album.appendChild(b);
+  });
+  document.getElementById("lbClose").onclick = closeBox;
+  document.getElementById("lbPrev").onclick = () => show(index - 1);
+  document.getElementById("lbNext").onclick = () => show(index + 1);
+  lb.addEventListener("click", e => { if (e.target === lb) closeBox(); });
+  addEventListener("keydown", e => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") closeBox();
+    if (e.key === "ArrowLeft") show(index - 1);
+    if (e.key === "ArrowRight") show(index + 1);
+  });
+  let touchX = 0;
+  lb.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+  });
+
+  // 상단 배경 영상: 유튜브 ID를 넣으면 유튜브, 비워두면 assets/hero.mp4, 둘 다 없으면 검정 배경
+  const HERO_YOUTUBE = "";
+
+  const hv = document.getElementById("heroVideo"), sb = document.getElementById("soundBtn");
+  let muted = true;
+  if (HERO_YOUTUBE) {
+    hv.remove();
+    const yt = document.createElement("iframe");
+    yt.className = "yt";
+    yt.title = "background video";
+    yt.allow = "autoplay; encrypted-media";
+    yt.src = `https://www.youtube.com/embed/${HERO_YOUTUBE}?autoplay=1&mute=1&loop=1&playlist=${HERO_YOUTUBE}&controls=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1`;
+    document.getElementById("top").prepend(yt);
+    const cmd = func => yt.contentWindow.postMessage(JSON.stringify({ event: "command", func, args: [] }), "*");
+    sb.onclick = () => { muted = !muted; cmd(muted ? "mute" : "unMute"); sb.textContent = muted ? "SOUND ON" : "SOUND OFF"; };
+  } else {
+    // 소리 버튼은 영상이 실제로 재생될 때만 보여줌
+    sb.hidden = true;
+    hv.addEventListener("playing", () => { sb.hidden = false; });
+    hv.muted = true;
+    hv.play().then(() => { sb.hidden = false; }).catch(() => {});
+    sb.onclick = () => { hv.muted = !hv.muted; sb.textContent = hv.muted ? "SOUND ON" : "SOUND OFF"; };
+  }
+
+  // 스크롤 시 내비 배경
+  const nav = document.getElementById("nav");
+  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
+
+  // 등장 애니메이션
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
