@@ -154,7 +154,7 @@
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#top" class="logo">SOAMING<b>.</b></a>
+    <a href="#top" class="logo">SOAMING LAB<b>.</b></a>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#classes">Classes</a></li>
@@ -172,7 +172,7 @@
   </video>
   <div class="wrap hero-text">
     <h1>Movement<span class="red">.</span><br>Wellness<span class="red">.</span><br>Balance<span class="red">.</span></h1>
-    <p>Wellness Entrepreneur, Soaming Jeong</p>
+    <p>정다솜 Soaming</p>
   </div>
   <button class="sound" id="soundBtn" aria-label="소리 켜기">SOUND ON</button>
 </section>
@@ -266,7 +266,7 @@
     <h2>Let’s move<br>together.</h2>
     <p>Whether it’s a program for your team or a class just for you, I’d love to hear from you.</p>
     <div class="btns">
-      <a class="btn" href="mailto:soamingbarre@gmail.com">Email: soamingbarre@gmail.com</a>
+      <a class="btn" id="emailBtn" href="mailto:soaminglab@gmail.com" aria-live="polite">Email</a>
       <a class="btn ghost" href="https://www.instagram.com/soaming/" target="_blank" rel="noopener">Instagram</a>
     </div>
   </div>
@@ -280,7 +280,7 @@
   <p class="lb-info" id="lbInfo"></p>
 </div>
 
-<footer><div class="wrap">© 2026 SOAMING · 정다솜</div></footer>
+<footer><div class="wrap">© 정다솜 Soaming</div></footer>
 
 <script>
   // 포트폴리오 영상: assets/portfolio 폴더에 영상을 넣고 파일명을 추가하세요. 비어 있으면 빈 칸으로 보여요
@@ -354,6 +354,17 @@
     hv.play().then(() => { sb.hidden = false; }).catch(() => {});
     sb.onclick = () => { hv.muted = !hv.muted; sb.textContent = hv.muted ? "SOUND ON" : "SOUND OFF"; };
   }
+
+  // 이메일 버튼: 메일 앱을 안 쓰는 방문자를 위해 클릭하면 주소도 복사됨
+  const emailBtn = document.getElementById("emailBtn");
+  let emailTimer;
+  emailBtn.addEventListener("click", () => {
+    navigator.clipboard?.writeText(emailBtn.href.replace("mailto:", "")).then(() => {
+      emailBtn.textContent = "Email copied";
+      clearTimeout(emailTimer);
+      emailTimer = setTimeout(() => { emailBtn.textContent = "Email"; }, 2000);
+    }).catch(() => {});
+  });
 
   // 스크롤 시 내비 배경
   const nav = document.getElementById("nav");
