@@ -78,6 +78,7 @@
 
   /* Portfolio */
   .film { background: var(--black); color: var(--white); }
+  .film h2 { margin-bottom: 56px; }
   .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
   .videos video, .videos .empty { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #1a1a1a; }
   .album { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 12px; margin-top: 72px; }
@@ -222,6 +223,8 @@
 <!-- ④ PORTFOLIO: 아래 스크립트의 VIDEOS, ALBUMS 목록에 파일명을 추가하세요 -->
 <section class="film" id="film">
   <div class="wrap">
+    <div class="label">Portfolio</div>
+    <h2>Portfolio, In <span class="red">Motion</span></h2>
     <div class="videos" id="videos"></div>
     <div class="album" id="album"></div>
   </div>
