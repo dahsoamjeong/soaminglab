@@ -25,6 +25,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { background: var(--white); color: var(--black); font-family: "Pretendard", -apple-system, system-ui, sans-serif; line-height: 1.6; letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; }
+  html[lang="ko"] body { word-break: keep-all; }
   img, video, iframe { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   .wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
@@ -41,9 +42,13 @@
   .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
   .logo { font-weight: 900; font-size: 1.15rem; letter-spacing: .04em; }
   .logo b { color: var(--red); }
-  .nav ul { display: flex; gap: 32px; list-style: none; font-size: .9rem; font-weight: 500; }
+  .nav ul { display: flex; gap: 32px; margin-left: auto; list-style: none; font-size: .9rem; font-weight: 500; }
   .nav ul a:hover { color: var(--red); }
   @media (max-width: 680px) { .nav ul { display: none; } }
+  .lang { display: flex; align-items: center; gap: 2px; margin-left: 32px; font-size: .8rem; font-weight: 600; letter-spacing: .04em; }
+  .lang button { padding: 8px 4px; background: none; border: 0; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; opacity: .55; }
+  .lang button[aria-pressed="true"] { opacity: 1; font-weight: 800; }
+  .lang button:hover { color: var(--red); opacity: 1; }
 
   /* Hero */
   .hero { position: relative; height: 100svh; min-height: 560px; display: flex; align-items: flex-end; overflow: hidden; color: var(--white); background: var(--black); padding: 0; }
@@ -129,6 +134,8 @@
   .extra-sub { margin-top: 4px; color: var(--gray); font-size: .95rem; }
   .tiles { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   @media (min-width: 760px) { .tiles { grid-template-columns: repeat(4, 1fr); } }
+  html[lang="ko"] .tiles { grid-template-columns: 1fr; }
+  @media (min-width: 760px) { html[lang="ko"] .tiles { grid-template-columns: repeat(3, 1fr); } }
   .tiles li { padding: 18px 16px; border: 1px solid var(--black); font-weight: 700; line-height: 1.35; }
   .tiles li span { display: block; margin-top: 4px; font-size: .85rem; font-weight: 400; color: var(--gray); }
   .steps { list-style: none; display: grid; grid-template-columns: 1fr; gap: 28px; }
@@ -161,12 +168,15 @@
   <div class="wrap">
     <a href="#top" class="logo">SOAMING LAB<b>.</b></a>
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#classes">Classes</a></li>
-      <li><a href="#film">Portfolio</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about" data-ko="소개">About</a></li>
+      <li><a href="#classes" data-ko="클래스">Classes</a></li>
+      <li><a href="#film" data-ko="포트폴리오">Portfolio</a></li>
+      <li><a href="#programs" data-ko="프로그램">Programs</a></li>
+      <li><a href="#contact" data-ko="문의">Contact</a></li>
     </ul>
+    <div class="lang" id="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="ko">KO</button><span>/</span><button type="button" data-lang="en">EN</button>
+    </div>
   </div>
 </header>
 
@@ -179,7 +189,7 @@
     <h1>Movement<span class="red">.</span><br>Wellness<span class="red">.</span><br>Balance<span class="red">.</span></h1>
     <p>정다솜 Soaming</p>
   </div>
-  <button class="sound" id="soundBtn" aria-label="소리 켜기">SOUND ON</button>
+  <button class="sound" id="soundBtn">SOUND ON</button>
 </section>
 
 <!-- ② ABOUT -->
@@ -190,12 +200,12 @@
         <img src="assets/profile.jpg" alt="정다솜 프로필">
       </div>
       <div class="reveal">
-        <div class="label">About</div>
-        <h2><span class="red">Good energy</span> is my gift.<br>Barre is how I share it.</h2>
-        <p>I did ballet for six years growing up, and in high school in the States, I was on the cheer dance team and ran sprints on the track team. I’ve been lifting for ten years now, and I’ve dabbled in just about everything along the way: Pilates, group classes like F45, boxing, swimming, rowing. Then I found barre, and I got certified to teach it.</p>
-        <p>I teach in English so people from all walks of life can take class together, and I teach in Korean too. But my classes go beyond barre. Alongside the movement, I make space to look inward, through journaling, stress relief, and taking care of your mind.</p>
-        <p>I’ve worked across marketing, education, sales, business development, and community building at a foundation, startups, and established companies. Today, I bring all of that into designing classes with brands and companies.</p>
-        <p>Next, I want to build a wellness community that spreads good energy to more people and helps everyone find their way back to themselves.</p>
+        <div class="label" data-ko="소개">About</div>
+        <h2 data-ko='제 가장 큰 장점은 <span class="red">에너지</span>예요.<br>바레는 그 에너지를 나누는 제 방식이에요.'><span class="red">Good energy</span> is my gift.<br>Barre is how I share it.</h2>
+        <p data-ko="어릴 때 6년 동안 발레를 했고, 미국에서 고등학교를 다니면서 치어댄스팀과 육상부 단거리 선수로 뛰었어요. 그 뒤로도 웨이트 트레이닝 10년, 필라테스, 축구, F45와 팀버핏 같은 그룹 운동, 복싱, 수영, 조정까지 다양한 운동을 하며 움직임을 통해 저 자신을 알아갔어요. 그러다 바레를 만났고, 지도자 자격증을 취득해 지금은 강사로 활동하고 있어요.">I did ballet for six years growing up, and in high school in the States, I was on the cheer dance team and ran sprints on the track team. I’ve been lifting for ten years now, and I’ve dabbled in just about everything along the way: Pilates, group classes like F45, boxing, swimming, rowing. Then I found barre, and I got certified to teach it.</p>
+        <p data-ko="수업은 주로 영어로 진행하고, 한국어로도 가능해요. 그리고 바레만 하고 끝나지 않아요. 몸을 움직인 뒤 글을 쓰며 내 마음을 들여다보는 시간도 함께 만들어요.">I teach in English so people from all walks of life can take class together, and I teach in Korean too. But my classes go beyond barre. Alongside the movement, I make space to look inward, through journaling, stress relief, and taking care of your mind.</p>
+        <p data-ko="외국계 재단, 스타트업, 대기업에서 마케팅, 커뮤니티 빌딩, 교육, 세일즈, 사업개발을 해왔어요. 지금은 그 경험을 살려 브랜드, 기업과 함께 클래스를 설계하고 있어요.">I’ve worked across marketing, education, sales, business development, and community building at a foundation, startups, and established companies. Today, I bring all of that into designing classes with brands and companies.</p>
+        <p data-ko="더 많은 사람에게 밝고 긍정적인 에너지를 전하고, 누구나 자기 자신을 찾아갈 수 있는 웰니스 커뮤니티를 만들고 싶어 SOAMING LAB을 시작하게 되었어요.">Next, I want to build a wellness community that spreads good energy to more people and helps everyone find their way back to themselves.</p>
       </div>
     </div>
   </div>
@@ -204,18 +214,18 @@
 <!-- ③ CLASSES: 연도/제목/설명만 바꾸면 돼요. li 블록을 복사해서 늘리거나 지우세요 -->
 <section class="career" id="classes">
   <div class="wrap">
-    <div class="label">Classes</div>
-    <h2>Classes, Built by <span class="red">Me</span></h2>
-    <p class="programs-intro">Every class here started with my own idea. I created the opportunity, planned it, and taught it myself.</p>
+    <div class="label" data-ko="클래스">Classes</div>
+    <h2 data-ko='<span class="red">직접</span> 기획하고 운영한 클래스'>Classes, Built by <span class="red">Me</span></h2>
+    <p class="programs-intro" data-ko="제안부터 협찬, 모객, 수업까지 직접 맡아 왔어요. 브랜드, 커뮤니티와 함께 다양한 클래스를 만들어요.">Every class here started with my own idea. I created the opportunity, planned it, and taught it myself.</p>
 
     <div class="program-head classes"><span>When</span><span>Class</span><span>What I did</span></div>
     <ul class="program-list classes">
-      <li class="reveal"><span class="no red">Coming December 2026</span><h3>Egattoc x SOAMING Barre Class</h3><p>A one-day barre class with Egattoc, a wellness brand based in Jeju.</p></li>
-      <li class="reveal"><span class="no">2026</span><h3>AYWA x Conch x Crycheeseburger: “Meeting Yourself Through Movement”</h3><p>I pitched this collaboration to AYWA, a yoga studio in Pangyo, and ran the whole thing end to end: program design, brand partnerships, participant recruitment, bringing in guest instructors, and day-of operations.</p></li>
-      <li class="reveal"><span class="no">2026</span><h3>Barre for the Global Community</h3><p>Right before Chuseok, I brought together people from abroad living in Korea for a barre class. A restaurant in Yangjae let us use their third-floor space, and we wrapped up with a networking session after class.</p></li>
-      <li class="reveal"><span class="no">2026</span><h3>Barre One-Day Class</h3><p>An intimate class with eight participants. I handled everything from planning and recruiting to teaching.</p></li>
-      <li class="reveal"><span class="no">2023</span><h3>Online Workout Session in the Metaverse</h3><p>Back when the metaverse was all the buzz, I led a workout session in a virtual space.</p></li>
-      <li class="reveal"><span class="no">2019</span><h3>Girls, Let’s Workout</h3><p>A six-month sculpt and mat Pilates group I created and ran, with 24 women.</p></li>
+      <li class="reveal"><span class="no red" data-ko="2026년 12월 예정">Coming December 2026</span><h3 data-ko="나의 웰니스 루틴 나누기 클래스">Egattoc x SOAMING Barre Class</h3><p data-ko="제주 에가톳에서 일상 속 웰니스 루틴을 나누는 클래스예요. 제 루틴인 바레를 함께 체험하고, 이어서 참가자들이 각자 꾸준히 하고 있는 웰니스를 이야기해요.">A one-day barre class with Egattoc, a wellness brand based in Jeju.</p></li>
+      <li class="reveal"><span class="no">2026</span><h3 data-ko="'움직임으로 나를 만나다' 몸 알기, 감정 알기 클래스">AYWA x Conch x Crycheeseburger: “Meeting Yourself Through Movement”</h3><p data-ko="바레로 몸을 깨운 뒤, 글쓰기로 지금 내 감정을 들여다보는 클래스예요. 운동 전과 후에 마음이 어떻게 달라지는지 직접 느껴볼 수 있어요. 판교 요가 스튜디오 에이와에 직접 제안해 콘치웨어, 크라이치즈버거와도 함께 클래스를 진행했어요.">I pitched this collaboration to AYWA, a yoga studio in Pangyo, and ran the whole thing end to end: program design, brand partnerships, participant recruitment, bringing in guest instructors, and day-of operations.</p></li>
+      <li class="reveal"><span class="no">2026</span><h3 data-ko="외국인과 함께한 바레 클래스">Barre for the Global Community</h3><p data-ko="한국에 사는 외국인들이 모여 영어로 바레 수업을 듣고, 이어서 함께 식사하며 네트워킹하는 자리였어요. 추석 연휴 직전, 고향을 떠나 한국에서 지내는 사람들이 새로운 친구를 만나는 시간이 됐어요.">Right before Chuseok, I brought together people from abroad living in Korea for a barre class. A restaurant in Yangjae let us use their third-floor space, and we wrapped up with a networking session after class.</p></li>
+      <li class="reveal"><span class="no">2026</span><h3 data-ko="바레 원데이 클래스">Barre One-Day Class</h3><p data-ko="8명이 함께한 소규모 클래스예요. 인원이 적어 한 사람씩 자세를 봐드리며, 바레를 처음 접하는 분도 편하게 따라올 수 있었어요.">An intimate class with eight participants. I handled everything from planning and recruiting to teaching.</p></li>
+      <li class="reveal"><span class="no">2023</span><h3 data-ko="메타버스 온라인 운동 세션">Online Workout Session in the Metaverse</h3><p data-ko="Spatial과 Zoom으로 각자 집에서 참여한 온라인 매트 필라테스 세션이에요. 장소에 상관없이 함께 운동하는 방식을 실험했어요.">Back when the metaverse was all the buzz, I led a workout session in a virtual space.</p></li>
+      <li class="reveal"><span class="no">2019</span><h3>Girls, Let’s Workout</h3><p data-ko="여성 24명이 6개월 동안 매주 모여 스컬프트와 매트 필라테스를 한 운동 모임이에요. 혼자서는 꾸준히 하기 어려운 운동을 함께하는 습관으로 만들었어요.">A six-month sculpt and mat Pilates group I created and ran, with 24 women.</p></li>
     </ul>
   </div>
 </section>
@@ -223,8 +233,8 @@
 <!-- ④ PORTFOLIO: 아래 스크립트의 VIDEOS, ALBUMS 목록에 파일명을 추가하세요 -->
 <section class="film" id="film">
   <div class="wrap">
-    <div class="label">Portfolio</div>
-    <h2>Portfolio, In <span class="red">Motion</span></h2>
+    <div class="label" data-ko="포트폴리오">Portfolio</div>
+    <h2 data-ko='<span class="red">영상과 사진</span>으로 보는 클래스'>Portfolio, In <span class="red">Motion</span></h2>
     <div class="videos" id="videos"></div>
     <div class="album" id="album"></div>
   </div>
@@ -233,21 +243,25 @@
 <!-- ⑤ PROGRAMS -->
 <section id="programs">
   <div class="wrap">
-    <div class="label">Programs</div>
-    <h2>Programs, Built Around <span class="red">You</span></h2>
-    <p class="programs-intro">Every program starts with your goals and your people. I’ll design the rest around them.</p>
+    <div class="label" data-ko="프로그램">Programs</div>
+    <h2 data-ko='<span class="red">고객</span>에 맞춘 프로그램'>Programs, Built Around <span class="red">You</span></h2>
+    <p class="programs-intro" data-ko="누구를 위한 자리인지, 무엇이 필요한지 먼저 듣고 그에 맞춰 프로그램을 설계해요.">Every program starts with your goals and your people. I’ll design the rest around them.</p>
 
     <div class="program-head"><span>Who it’s for</span><span>What it looks like</span></div>
     <ul class="program-list">
-      <li class="reveal"><span class="no">01</span><h3>Corporate Wellness</h3><p>Barre for employee well-being, team-building workshops, and more.</p></li>
-      <li class="reveal"><span class="no">02</span><h3>Local Government &amp; Public Sector</h3><p>Wellness programs and talks for residents, international communities, and staff.</p></li>
-      <li class="reveal"><span class="no">03</span><h3>Brands &amp; Communities</h3><p>Pop-up classes and wellness events, handled start to finish.</p></li>
-      <li class="reveal"><span class="no">04</span><h3>Barre Classes</h3><p>One-day classes for individuals, in English and Korean. All levels welcome.</p></li>
+      <li class="reveal"><span class="no">01</span><h3 data-ko="기업 웰니스">Corporate Wellness</h3><p data-ko="오래 앉아 일하는 임직원을 위한 바레 클래스예요. 저도 회사에서 일하며 그 피로를 직접 겪어봤기에, 직장인의 몸과 일상에 맞춰 수업을 구성해요. 회의실에서 의자만 있으면 할 수 있고, 움직임으로 몸을 깨운 뒤 팀 빌딩이나 스트레스 관리 세션을 더할 수 있어요. 끝나면 참여자 반응을 담은 결과 리포트를 전달해요.">Barre for employee well-being, team-building workshops, and more.</p></li>
+      <li class="reveal"><span class="no">02</span><h3 data-ko="지자체 &amp; 공공기관">Local Government &amp; Public Sector</h3><p data-ko="주민, 외국인 주민, 직원을 위한 웰니스 프로그램이에요. 기관과 지역의 특성을 먼저 이해하고, 참여 대상에 맞춰 기획해요.">Wellness programs and talks for residents, international communities, and staff.</p></li>
+      <li class="reveal"><span class="no">03</span><h3 data-ko="브랜드 &amp; 커뮤니티">Brands &amp; Communities</h3><p data-ko="원데이 클래스와 웰니스 행사예요. 기획, 브랜드 협업, 모객, 운영까지 직접 맡아 브랜드를 자연스럽게 알릴 수 있는 자리를 만들어요.">Pop-up classes and wellness events, handled start to finish.</p></li>
+      <li class="reveal"><span class="no">04</span><h3 data-ko="바레 클래스">Barre Classes</h3><p data-ko="개인을 위한 원데이 클래스예요. 영어와 한국어로 진행하고, 처음인 분도 편하게 참여할 수 있어요.">One-day classes for individuals, in English and Korean. All levels welcome.</p></li>
     </ul>
 
     <div class="extra reveal">
-      <div><h3>Build Your Own</h3><p class="extra-sub">Mix and match what works for you.</p></div>
-      <ul class="tiles">
+      <div><h3 data-ko="이렇게 구성할 수 있어요">Build Your Own</h3><p class="extra-sub" data-ko="목적에 맞게 골라 조합해요.">Mix and match what works for you.</p></div>
+      <ul class="tiles" data-ko='
+        <li>몸 알기 · 35~50분<span>스트레칭과 바레로 굳은 몸을 깨우고, 내 몸의 상태를 느껴요.</span></li>
+        <li>마음 알기 · 15~20분<span>저널링으로 운동 전후의 감정과 마음을 들여다봐요.</span></li>
+        <li>서로 알기 · 20~30분<span>팀 빌딩과 네트워킹으로 함께한 사람들과 가까워져요.</span></li>
+      '>
         <li>Barre<span>50 min</span></li>
         <li>Mind Session<span>Journaling, stress relief</span></li>
         <li>Networking</li>
@@ -256,12 +270,12 @@
     </div>
 
     <div class="extra reveal">
-      <div><h3>How It Works</h3></div>
+      <div><h3 data-ko="진행 방식">How It Works</h3></div>
       <ol class="steps">
-        <li>Discovery Call</li>
-        <li>Custom Plan</li>
-        <li>Program Day</li>
-        <li>Wrap-Up Report</li>
+        <li data-ko="사전미팅">Discovery Call</li>
+        <li data-ko="맞춤 기획">Custom Plan</li>
+        <li data-ko="프로그램 진행">Program Day</li>
+        <li data-ko="결과 리포트">Wrap-Up Report</li>
       </ol>
     </div>
   </div>
@@ -270,10 +284,10 @@
 <!-- ⑥ CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap reveal">
-    <h2>Let’s move<br>together.</h2>
-    <p>Whether it’s a program for your team or a class just for you, I’d love to hear from you.</p>
+    <h2 data-ko="좋은 에너지,<br>함께 나눠요.">Let’s move<br>together.</h2>
+    <p data-ko="함께 움직이고 함께 건강해지는 시간, 편하게 연락 주세요.">Whether it’s a program for your team or a class just for you, I’d love to hear from you.</p>
     <div class="btns">
-      <a class="btn" id="emailBtn" href="mailto:soaminglab@gmail.com" aria-live="polite">Email</a>
+      <a class="btn" id="emailBtn" href="mailto:soaminglab@gmail.com" aria-live="polite" data-ko="이메일">Email</a>
       <a class="btn ghost" href="https://www.instagram.com/soaming.lab/" target="_blank" rel="noopener">Instagram</a>
       <a class="btn ghost" href="https://www.linkedin.com/in/soaming/" target="_blank" rel="noopener">LinkedIn</a>
     </div>
@@ -291,6 +305,9 @@
 <footer><div class="wrap">© 정다솜 Soaming</div></footer>
 
 <script>
+  let lang = "ko";
+  const t = (en, ko) => lang === "ko" ? ko : en;
+
   // 포트폴리오 영상: assets/portfolio 폴더에 영상을 넣고 파일명을 추가하세요. 비어 있으면 빈 칸으로 보여요
   const VIDEOS = ["video1.mp4", "video2.mp4", "video3.mp4"];
 
@@ -300,10 +317,10 @@
 
   // 사진첩: 클래스별 묶음. photos의 첫 번째 사진이 표지가 돼요. 사진은 assets/gallery 폴더에 넣고 파일명을 추가하세요
   const ALBUMS = [
-    { title: "AYWA x Conch x Crycheeseburger", photos: ["photo19.jpg", "photo28.jpg", "photo27.jpg", "photo21.jpg", "photo22.jpg", "photo18.jpg"] },
-    { title: "Barre for the Global Community", photos: ["photo11.jpg", "photo10.jpg", "photo08.jpg", "photo09.jpg", "photo26.jpg", "photo12.jpg"] },
-    { title: "Barre One-Day Class", photos: ["photo02.jpg", "photo01.jpg", "photo25.jpg", "photo03.jpg", "photo04.jpg", "photo05.jpg"] },
-    { title: "Profile", photos: ["photo16.jpg", "photo14.jpg", "photo15.jpg", "photo17.jpg", "photo06.jpg", "photo29.jpg"] },
+    { title: "AYWA x Conch x Crycheeseburger", ko: "AYWA x Conch x Crycheeseburger", photos: ["photo19.jpg", "photo28.jpg", "photo27.jpg", "photo21.jpg", "photo22.jpg", "photo18.jpg"] },
+    { title: "Barre for the Global Community", ko: "외국인과 함께한 바레 클래스", photos: ["photo11.jpg", "photo10.jpg", "photo08.jpg", "photo09.jpg", "photo26.jpg", "photo12.jpg"] },
+    { title: "Barre One-Day Class", ko: "바레 원데이 클래스", photos: ["photo02.jpg", "photo01.jpg", "photo25.jpg", "photo03.jpg", "photo04.jpg", "photo05.jpg"] },
+    { title: "Profile", ko: "프로필", photos: ["photo16.jpg", "photo14.jpg", "photo15.jpg", "photo17.jpg", "photo06.jpg", "photo29.jpg"] },
   ];
 
   const album = document.getElementById("album");
@@ -312,13 +329,13 @@
   const show = i => {
     index = (i + current.photos.length) % current.photos.length;
     lbImg.src = `assets/gallery/${current.photos[index]}`;
-    lbInfo.textContent = `${current.title} · ${index + 1} / ${current.photos.length}`;
+    lbInfo.textContent = `${t(current.title, current.ko)} · ${index + 1} / ${current.photos.length}`;
   };
   const closeBox = () => { lb.hidden = true; document.body.style.overflow = ""; opener?.focus(); };
   ALBUMS.forEach(a => {
     const b = document.createElement("button");
     b.className = "set";
-    b.innerHTML = `<img src="assets/gallery/${a.photos[0]}" alt="" loading="lazy"><strong>${a.title}</strong><span>${a.photos.length} photos</span>`;
+    b.innerHTML = `<img src="assets/gallery/${a.photos[0]}" alt="" loading="lazy"><strong data-ko="${a.ko}">${a.title}</strong><span data-ko="사진 ${a.photos.length}장">${a.photos.length} photos</span>`;
     b.onclick = () => { current = a; opener = b; show(0); lb.hidden = false; document.body.style.overflow = "hidden"; document.getElementById("lbClose").focus(); };
     album.appendChild(b);
   });
@@ -344,6 +361,7 @@
 
   const hv = document.getElementById("heroVideo"), sb = document.getElementById("soundBtn");
   let muted = true;
+  const soundLabel = () => { sb.textContent = muted ? t("SOUND ON", "소리 켜기") : t("SOUND OFF", "소리 끄기"); };
   if (HERO_YOUTUBE) {
     hv.remove();
     const yt = document.createElement("iframe");
@@ -353,14 +371,14 @@
     yt.src = `https://www.youtube.com/embed/${HERO_YOUTUBE}?autoplay=1&mute=1&loop=1&playlist=${HERO_YOUTUBE}&controls=0&playsinline=1&rel=0&modestbranding=1&enablejsapi=1`;
     document.getElementById("top").prepend(yt);
     const cmd = func => yt.contentWindow.postMessage(JSON.stringify({ event: "command", func, args: [] }), "*");
-    sb.onclick = () => { muted = !muted; cmd(muted ? "mute" : "unMute"); sb.textContent = muted ? "SOUND ON" : "SOUND OFF"; };
+    sb.onclick = () => { muted = !muted; cmd(muted ? "mute" : "unMute"); soundLabel(); };
   } else {
     // 소리 버튼은 영상이 실제로 재생될 때만 보여줌
     sb.hidden = true;
     hv.addEventListener("playing", () => { sb.hidden = false; });
     hv.muted = true;
     hv.play().then(() => { sb.hidden = false; }).catch(() => {});
-    sb.onclick = () => { hv.muted = !hv.muted; sb.textContent = hv.muted ? "SOUND ON" : "SOUND OFF"; };
+    sb.onclick = () => { hv.muted = muted = !muted; soundLabel(); };
   }
 
   // 이메일 버튼: 메일 앱을 안 쓰는 방문자를 위해 클릭하면 주소도 복사됨
@@ -368,11 +386,27 @@
   let emailTimer;
   emailBtn.addEventListener("click", () => {
     navigator.clipboard?.writeText(emailBtn.href.replace("mailto:", "")).then(() => {
-      emailBtn.textContent = "Email copied";
+      emailBtn.textContent = t("Email copied", "이메일 복사됨");
       clearTimeout(emailTimer);
-      emailTimer = setTimeout(() => { emailBtn.textContent = "Email"; }, 2000);
+      emailTimer = setTimeout(() => { emailBtn.textContent = t("Email", "이메일"); }, 2000);
     }).catch(() => {});
   });
+
+  // 언어 전환: 기본은 한국어예요. 태그 안의 문구가 영어, data-ko가 한국어라서 문구를 고칠 땐 둘 다 바꾸세요
+  const koTexts = [...document.querySelectorAll("[data-ko]")].map(el => ({ el, en: el.innerHTML }));
+  const langBtns = document.querySelectorAll("#lang button");
+  const setLang = next => {
+    lang = next;
+    document.documentElement.lang = lang;
+    koTexts.forEach(({ el, en }) => { el.innerHTML = t(en, el.dataset.ko); });
+    langBtns.forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+    soundLabel();
+    try { localStorage.setItem("lang", lang); } catch {}
+  };
+  langBtns.forEach(b => { b.onclick = () => setLang(b.dataset.lang); });
+  let savedLang = null;
+  try { savedLang = localStorage.getItem("lang"); } catch {}
+  setLang(savedLang === "en" ? "en" : "ko");
 
   // 스크롤 시 내비 배경
   const nav = document.getElementById("nav");
