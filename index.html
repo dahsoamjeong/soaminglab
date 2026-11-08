@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SOAMING · Barre & Wellness</title>
+<title>SOAMING LAB 소밍랩 | move to find yourself</title>
 <meta name="description" content="바레와 웰니스로 몸과 일상의 균형을 만드는 정다솜 (Soaming Jeong)">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://soaminglab.com/">
-<meta property="og:title" content="SOAMING LAB.">
+<meta property="og:title" content="SOAMING LAB 소밍랩 | move to find yourself">
 <meta property="og:description" content="바레와 웰니스로 몸과 일상의 균형을 만드는 정다솜 Soaming">
 <meta property="og:image" content="https://soaminglab.com/assets/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
@@ -144,6 +144,19 @@
     .steps li:not(:last-child)::after { content: "→"; left: auto; right: -25px; bottom: auto; top: 50%; transform: translateY(-50%); }
   }
 
+  /* Content */
+  .content { border-top: 1px solid var(--line); }
+  .content h2 { margin-bottom: 20px; }
+  .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 56px; }
+  @media (min-width: 760px) { .reels { gap: 16px; } }
+  .reels a { position: relative; display: block; overflow: hidden; background: #f2f2f2; }
+  .reels img { width: 100%; aspect-ratio: 9/16; object-fit: cover; transition: transform .4s ease, opacity .25s; }
+  .reels a:hover img { transform: scale(1.03); opacity: .85; }
+  .reels a::after { content: "↗"; position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 32px; height: 32px; background: var(--red); color: var(--white); font-weight: 700; opacity: 0; transition: opacity .25s; }
+  .reels a:hover::after, .reels a:focus-visible::after { opacity: 1; }
+  .content .more { display: inline-block; margin-top: 32px; font-weight: 700; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+  .content .more:hover { color: var(--red); }
+
   /* Contact */
   .contact { background: var(--red); color: var(--white); }
   .contact h2 { font-size: clamp(2.6rem, 8vw, 6.5rem); font-weight: 900; letter-spacing: -0.05em; line-height: 1; }
@@ -170,6 +183,7 @@
       <li><a href="#classes" data-ko="클래스">Classes</a></li>
       <li><a href="#film" data-ko="포트폴리오">Portfolio</a></li>
       <li><a href="#programs" data-ko="프로그램">Programs</a></li>
+      <li><a href="#content" data-ko="콘텐츠">Story</a></li>
       <li><a href="#contact" data-ko="문의">Contact</a></li>
     </ul>
     <div class="lang" id="lang" role="group" aria-label="Language">
@@ -274,7 +288,18 @@
   </div>
 </section>
 
-<!-- ⑥ CONTACT -->
+<!-- ⑥ CONTENT -->
+<section class="content" id="content">
+  <div class="wrap">
+    <div class="label" data-ko="콘텐츠">Story</div>
+    <h2 data-ko='회사를 박차고 나와 <span class="red">웰니스 강사</span>요?'>Wait, You <span class="red">Teach Wellness</span> Now?</h2>
+    <p class="programs-intro" data-ko="회사를 나와 웰니스 강사가 되기까지의 이야기를 인스타그램에 담고 있어요.">The story of how I gave up a steady paycheck to become a wellness instructor.</p>
+    <div class="reels" id="reels"></div>
+    <a class="more" href="https://www.instagram.com/soaming.lab/" target="_blank" rel="noopener" data-ko="인스타그램에서 더 보기 →">More on Instagram →</a>
+  </div>
+</section>
+
+<!-- ⑦ CONTACT -->
 <section class="contact" id="contact">
   <div class="wrap reveal">
     <h2 data-ko="좋은 에너지,<br>함께 나눠요.">Let’s Share<br>Good Energy.</h2>
@@ -307,6 +332,17 @@
   document.getElementById("videos").innerHTML = VIDEOS.length
     ? VIDEOS.map(f => `<video src="assets/portfolio/${f}" poster="assets/portfolio/${f.replace(".mp4", ".jpg")}" controls playsinline preload="metadata"></video>`).join("")
     : '<div class="empty"></div>'.repeat(3);
+
+  // 콘텐츠: assets/content 폴더에 표지 이미지를 넣고 한 줄씩 추가하세요. 적은 순서대로 보여요
+  const EPISODES = [
+    { img: "ep1.jpg", title: "1편. 은사 그리고 에너지", url: "https://www.instagram.com/p/DfbqnOcO_6x/" },
+    { img: "ep2.jpg", title: "2편. 몰입, 선한 영향력", url: "https://www.instagram.com/p/DfcsmNUvs_H/" },
+    { img: "ep3.jpg", title: "3편. 제로 투 원, 문화사역", url: "https://www.instagram.com/p/DfdvOWuhD6J/" },
+  ];
+
+  document.getElementById("reels").innerHTML = EPISODES.map(e =>
+    `<a class="reveal" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} (Instagram)"><img src="assets/content/${e.img}" alt="${e.title}" loading="lazy"></a>`
+  ).join("");
 
   // 사진첩: 클래스별 묶음. photos의 첫 번째 사진이 표지가 돼요. 사진은 assets/gallery 폴더에 넣고 파일명을 추가하세요
   const ALBUMS = [
