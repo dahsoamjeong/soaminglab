@@ -147,14 +147,22 @@
   /* Content */
   .content { border-top: 1px solid var(--line); }
   .content h2 { margin-bottom: 20px; }
-  .reels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 56px; }
-  @media (min-width: 760px) { .reels { gap: 16px; } }
-  .reels a { position: relative; display: block; overflow: hidden; background: #f2f2f2; }
+  /* 옆으로 넘기기: 큰 화면은 3개, 휴대폰은 2개 + 다음 것이 살짝 보여요 */
+  .reels { --n: 2.2; --gap: 12px; display: flex; gap: var(--gap); margin-top: 56px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .reels::-webkit-scrollbar { display: none; }
+  @media (min-width: 760px) { .reels { --n: 3; --gap: 16px; } }
+  .reels a { position: relative; display: block; flex: 0 0 calc((100% - (var(--n) - 1) * var(--gap)) / var(--n)); scroll-snap-align: start; overflow: hidden; background: #f2f2f2; }
   .reels img { width: 100%; aspect-ratio: 9/16; object-fit: cover; transition: transform .4s ease, opacity .25s; }
   .reels a:hover img { transform: scale(1.03); opacity: .85; }
   .reels a::after { content: "↗"; position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 32px; height: 32px; background: var(--red); color: var(--white); font-weight: 700; opacity: 0; transition: opacity .25s; }
   .reels a:hover::after, .reels a:focus-visible::after { opacity: 1; }
-  .content .more { display: inline-block; margin-top: 32px; font-weight: 700; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
+  .reels-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; }
+  .reels-nav { display: flex; gap: 8px; }
+  .reels-nav button { width: 44px; height: 44px; background: none; border: 1px solid var(--black); color: var(--black); font: inherit; font-size: 1.3rem; line-height: 1; cursor: pointer; transition: background .2s, color .2s, opacity .2s; }
+  .reels-nav button:hover:not(:disabled) { background: var(--black); color: var(--white); }
+  .reels-nav button:disabled { opacity: .25; cursor: default; }
+  .more-links { display: flex; flex-wrap: wrap; gap: 12px 28px; }
+  .content .more { display: inline-block; font-weight: 700; border-bottom: 2px solid var(--red); padding-bottom: 2px; }
   .content .more:hover { color: var(--red); }
 
   /* Contact */
@@ -293,9 +301,18 @@
   <div class="wrap">
     <div class="label" data-ko="콘텐츠">Story</div>
     <h2 data-ko='회사를 박차고 나와 <span class="red">웰니스 강사</span>요?'>Wait, You <span class="red">Teach Wellness</span> Now?</h2>
-    <p class="programs-intro" data-ko="회사를 나와 웰니스 강사가 되기까지의 이야기를 인스타그램에 담고 있어요.">The story of how I gave up a steady paycheck to become a wellness instructor.</p>
-    <div class="reels" id="reels"></div>
-    <a class="more" href="https://www.instagram.com/soaming.lab/" target="_blank" rel="noopener" data-ko="인스타그램에서 더 보기 →">More on Instagram →</a>
+    <p class="programs-intro" data-ko="회사를 나와 웰니스 강사가 되기까지의 이야기를 인터뷰로 담고 있어요.">The story of how I gave up a steady paycheck to become a wellness instructor.</p>
+    <div class="reels reveal" id="reels"></div>
+    <div class="reels-foot">
+      <div class="more-links">
+        <a class="more" href="https://www.instagram.com/soaming.lab/" target="_blank" rel="noopener" data-ko="인스타그램에서 더 보기 →">More on Instagram →</a>
+        <a class="more" href="https://www.youtube.com/@soaminglab" target="_blank" rel="noopener" data-ko="유튜브에서 보기 →">Watch on YouTube →</a>
+      </div>
+      <div class="reels-nav">
+        <button id="reelsPrev" aria-label="Previous">‹</button>
+        <button id="reelsNext" aria-label="Next">›</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -343,9 +360,19 @@
     { img: "ep6.jpg", title: "6편. 다정함은 체력에서 그리고 나의 꿈", url: "https://www.instagram.com/p/DfgzHRZAofe/" },
   ];
 
-  document.getElementById("reels").innerHTML = EPISODES.map(e =>
-    `<a class="reveal" href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} (Instagram)"><img src="assets/content/${e.img}" alt="${e.title}" loading="lazy"></a>`
+  const reels = document.getElementById("reels"), reelsPrev = document.getElementById("reelsPrev"), reelsNext = document.getElementById("reelsNext");
+  reels.innerHTML = EPISODES.map(e =>
+    `<a href="${e.url}" target="_blank" rel="noopener" aria-label="${e.title} (Instagram)"><img src="assets/content/${e.img}" alt="${e.title}" loading="lazy"></a>`
   ).join("");
+  const updateReels = () => {
+    reelsPrev.disabled = reels.scrollLeft <= 2;
+    reelsNext.disabled = reels.scrollLeft + reels.clientWidth >= reels.scrollWidth - 2;
+  };
+  reelsPrev.onclick = () => reels.scrollBy({ left: -reels.clientWidth });
+  reelsNext.onclick = () => reels.scrollBy({ left: reels.clientWidth });
+  reels.addEventListener("scroll", updateReels, { passive: true });
+  addEventListener("resize", updateReels);
+  updateReels();
 
   // 사진첩: 클래스별 묶음. photos의 첫 번째 사진이 표지가 돼요. 사진은 assets/gallery 폴더에 넣고 파일명을 추가하세요
   const ALBUMS = [
