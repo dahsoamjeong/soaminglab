@@ -188,28 +188,29 @@
   .content .more:hover { color: var(--red); }
 
   /* Contact */
-  .contact { background: var(--white); color: var(--black); border-top: 1px solid var(--line); scroll-margin-top: 68px; }
+  .contact { background: var(--red); color: var(--white); scroll-margin-top: 68px; }
+  .contact .label::before { background: var(--white); }
   .contact .label { margin-bottom: 24px; }
   .contact h2 { font-size: clamp(2.6rem, 5.5vw, 4.8rem); font-weight: 900; letter-spacing: -0.05em; line-height: 1.08; }
-  .contact .contact-intro { max-width: 42em; margin: 28px 0 0; color: var(--gray); font-size: clamp(1rem, 1.5vw, 1.1rem); }
+  .contact .contact-intro { max-width: 42em; margin: 28px 0 0; color: rgba(255,255,255,.88); font-size: clamp(1rem, 1.5vw, 1.1rem); }
   .contact-actions { margin-top: 32px; }
   .inquiry-cta { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 14px 28px; border: 1px solid var(--black); background: var(--black); color: var(--white); font: inherit; font-size: .95rem; font-weight: 700; cursor: pointer; transition: background .2s, border-color .2s; }
-  .inquiry-cta:hover { background: var(--red); border-color: var(--red); }
+  .inquiry-cta:hover { background: var(--white); border-color: var(--white); color: var(--red); }
   .contact-links { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 28px; }
-  .contact-links a { padding: 2px 0; color: var(--gray); font-size: .9rem; border-bottom: 1px solid var(--line); transition: color .2s, border-color .2s; }
-  .contact-links a:hover { color: var(--red); border-color: var(--red); }
-  .contact .contact-email { margin: 14px 0 0; font-size: .82rem; color: var(--gray); overflow-wrap: anywhere; }
-  .inquiry-panel { max-width: 800px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 96px; }
+  .contact-links a { padding: 2px 0; color: var(--white); font-size: .9rem; border-bottom: 1px solid rgba(255,255,255,.5); transition: color .2s, border-color .2s; }
+  .contact-links a:hover { color: var(--black); border-color: var(--black); }
+  .contact .contact-email { margin: 14px 0 0; font-size: .82rem; color: rgba(255,255,255,.8); overflow-wrap: anywhere; }
+  .inquiry-panel { max-width: 800px; margin-top: 40px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.4); scroll-margin-top: 96px; }
   .inquiry-panel[hidden] { display: none; }
   .inquiry-panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
   .inquiry-panel h3 { font-size: 1.4rem; font-weight: 800; letter-spacing: -.03em; }
   .inquiry-panel h3:focus { outline: none; }
-  .inquiry-close { min-height: 44px; padding: 8px 0 8px 16px; background: none; border: 0; color: var(--gray); font: inherit; font-size: .85rem; cursor: pointer; }
-  .inquiry-close:hover { color: var(--red); }
+  .inquiry-close { min-height: 44px; padding: 8px 0 8px 16px; background: none; border: 0; color: rgba(255,255,255,.85); font: inherit; font-size: .85rem; cursor: pointer; }
+  .inquiry-close:hover { color: var(--black); }
   .inquiry-frame { display: block; width: 100%; height: 1260px; margin-top: 16px; border: 0; background: var(--white); }
-  .contact .inquiry-fallback { margin: 16px 0 0; color: var(--gray); font-size: .85rem; }
-  .inquiry-fallback a { color: var(--black); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
-  .inquiry-cta:focus-visible, .contact-links a:focus-visible, .inquiry-close:focus-visible, .inquiry-fallback a:focus-visible { outline: 2px solid var(--red); outline-offset: 5px; }
+  .contact .inquiry-fallback { margin: 16px 0 0; color: rgba(255,255,255,.85); font-size: .85rem; }
+  .inquiry-fallback a { color: var(--white); border-bottom: 1px solid rgba(255,255,255,.5); padding-bottom: 2px; }
+  .inquiry-cta:focus-visible, .contact-links a:focus-visible, .inquiry-close:focus-visible, .inquiry-fallback a:focus-visible { outline: 2px solid var(--white); outline-offset: 5px; }
   @media (max-width: 599px) { .contact { padding-block: 88px; } .contact .contact-intro br { display: none; } .inquiry-cta { width: 100%; } .inquiry-frame { height: 1490px; } .inquiry-panel { margin-top: 32px; } }
   footer { padding: 28px 0; font-size: .8rem; color: var(--gray); }
 
