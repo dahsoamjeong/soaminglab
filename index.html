@@ -501,6 +501,11 @@
     inquiryToggle.setAttribute("aria-expanded", "false");
     inquiryToggle.focus();
   };
+  inquiryFrame.addEventListener("load", () => {
+    if (!inquiryPanel.hidden && inquiryFrame.getAttribute("src")) {
+      inquiryPanel.scrollIntoView({ behavior: "auto", block: "start" });
+    }
+  });
   inquiryToggle.addEventListener("click", () => {
     if (!inquiryPanel.hidden) { closeInquiry(); return; }
     if (!inquiryFrame.getAttribute("src")) inquiryFrame.src = inquiryFrame.dataset.src;
