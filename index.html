@@ -91,7 +91,40 @@
   .sound:hover { background: var(--red); border-color: var(--red); }
   @media (min-width: 760px) { .sound { right: 40px; bottom: 40px; } }
 
+  .hero .tagline { margin-top: 28px; font-size: clamp(1rem, 1.6vw, 1.15rem); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--white); }
+  .hero .tagline + p { margin-top: 6px; }
+
+  /* Philosophy */
+  .philosophy h2 { font-size: clamp(2.2rem, 5.6vw, 4.4rem); font-weight: 900; letter-spacing: -0.05em; }
+  .philo-intro { max-width: 36em; margin-top: 28px; color: var(--gray); font-size: clamp(1rem, 1.6vw, 1.15rem); }
+  .principles { list-style: none; display: grid; grid-template-columns: 1fr; margin-top: 64px; border-top: 2px solid var(--black); }
+  .principles li { display: grid; grid-template-columns: 56px 1fr; gap: 4px 0; padding: 28px 0; border-bottom: 1px solid var(--line); }
+  .principles .no { grid-row: span 2; font-weight: 900; color: var(--red); font-size: 1.05rem; line-height: 1.6; }
+  .principles h3 { font-size: clamp(1.35rem, 2.4vw, 1.8rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.3; }
+  .principles p { color: var(--gray); font-size: 1.02rem; }
+  @media (min-width: 860px) {
+    .principles { grid-template-columns: repeat(3, 1fr); gap: 0 40px; }
+    .principles li { grid-template-columns: 1fr; padding: 32px 0 0; border-bottom: 0; transition-delay: calc(var(--i, 0) * .15s); }
+    .principles .no { grid-row: auto; margin-bottom: 20px; }
+    .principles p { margin-top: 8px; }
+  }
+  .manifesto { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px 40px; margin-top: 88px; padding-top: 40px; border-top: 1px solid var(--black); }
+  .manifesto strong { display: block; font-size: clamp(2.2rem, 6vw, 4.6rem); font-weight: 900; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  .manifesto .sub { margin-top: 16px; color: var(--gray); font-size: 1.02rem; }
+  .story-toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 12px 0; background: none; border: 0; border-bottom: 2px solid var(--red); color: var(--black); font: inherit; font-weight: 700; cursor: pointer; }
+  .story-toggle::after { content: "↓"; color: var(--red); transition: transform .3s; }
+  .story-toggle[aria-expanded="true"]::after { transform: rotate(180deg); }
+  .story-toggle:hover { color: var(--red); }
+  .story-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+  .story-panel { max-width: 680px; margin-top: 56px; }
+  .story-panel[hidden] { display: none; }
+  .story-panel p { margin-bottom: 1.4em; font-size: 1.05rem; line-height: 1.9; color: #333; }
+  .story-panel blockquote { margin: 0 0 1.4em; padding-left: 20px; border-left: 3px solid var(--red); font-size: 1rem; line-height: 1.8; color: var(--gray); }
+  .story-panel .sign { margin-top: 2em; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; color: var(--black); }
+  .story-panel .sign b { color: var(--red); }
+
   /* About */
+  .about { border-top: 1px solid var(--line); }
   .about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
   @media (min-width: 860px) { .about-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; } }
   .portrait { aspect-ratio: 3/4; width: 100%; max-width: 420px; background: #f2f2f2; display: grid; place-items: center; color: var(--gray); font-size: .85rem; overflow: hidden; }
@@ -226,6 +259,7 @@
   <div class="wrap">
     <a href="#top" class="logo">SOAMING LAB<b>.</b></a>
     <ul>
+      <li><a href="#philosophy" data-ko="철학">Philosophy</a></li>
       <li><a href="#about" data-ko="소개">About</a></li>
       <li><a href="#classes" data-ko="클래스">Classes</a></li>
       <li><a href="#film" data-ko="포트폴리오">Portfolio</a></li>
@@ -246,9 +280,46 @@
   </video>
   <div class="wrap hero-text">
     <h1>Movement<span class="red">.</span><br>Wellness<span class="red">.</span><br>Balance<span class="red">.</span></h1>
+    <p class="tagline">Move to Find Yourself<span class="red">.</span></p>
     <p>소밍랩 · 정다솜 Soaming</p>
   </div>
   <button class="sound" id="soundBtn">SOUND ON</button>
+</section>
+
+<!-- ②-0 PHILOSOPHY: 세 가지 원칙과 전체 이야기. 문구를 고칠 땐 영어(태그 안)와 data-ko(한국어)를 둘 다 바꾸세요 -->
+<section class="philosophy" id="philosophy">
+  <div class="wrap">
+    <div class="label" data-ko="소밍랩의 철학">Philosophy</div>
+    <h2 class="reveal" data-ko='나로 있는 것만으로<br>충분하다<span class="red">.</span>'>Being You<br>Is Enough<span class="red">.</span></h2>
+    <p class="philo-intro reveal" data-ko="잘해야 인정받는다고 믿던 시절이 있었어요. 움직임 속에서 저는, 무언가를 증명하지 않아도 이미 충분하다는 걸 발견했어요. 소밍랩의 모든 수업은 그 발견에서 시작해요.">I used to believe I had to be good at things to be worth something. Through movement, I found I was already enough, with nothing to prove. Every SOAMING LAB class starts from there.</p>
+
+    <ol class="principles">
+      <li class="reveal" style="--i:0"><span class="no">01</span><h3 data-ko="존재를 인정하고">Accept who you are</h3><p data-ko="증명하지 않아도, 나는 존재만으로 충분하다.">No need to prove anything. You are enough as you are.</p></li>
+      <li class="reveal" style="--i:1"><span class="no">02</span><h3 data-ko="자기다움을 발견하고">Discover what’s already yours</h3><p data-ko="부족한 걸 채우기보다, 내가 이미 가진 것을 발견한다.">Instead of filling what’s missing, find what you already have.</p></li>
+      <li class="reveal" style="--i:2"><span class="no">03</span><h3 data-ko="고유한 아름다움을 표현한다">Express your own beauty</h3><p data-ko="나답게 살아가고, 서로 다른 모습을 있는 그대로 받아들인다.">Live as yourself, and welcome each other just as we are.</p></li>
+    </ol>
+
+    <div class="manifesto reveal">
+      <div>
+        <strong>Move to<br>Find Yourself<span class="red">.</span></strong>
+        <p class="sub" data-ko="움직임과 글쓰기로, 나를 발견하다.">Through movement and writing, find yourself.</p>
+      </div>
+      <button class="story-toggle" id="storyToggle" type="button" aria-expanded="false" aria-controls="storyPanel" data-ko="소밍의 이야기 전체 읽기">Read Soaming’s full story</button>
+    </div>
+
+    <div class="story-panel" id="storyPanel" hidden>
+      <p data-ko="저를 또 알게 해준 건 움직임이었어요. 여러 운동에 호기심이 생겨서 하루에 세 번씩, 많을 때는 8시간씩 운동한 적도 있어요. 그때 느낀 건 '움직임, 운동을 통해 숨통이 트인다'는 거였어요. 몸의 감각에 집중하면서 에너지를 얻었고, 그렇게 움직임은 제가 저를 알아가는 도구가 되었어요. 움직임 속에서 저를 찾다 보니, 가진 게 없다고 생각했던 제가 사실 에너지와 추진력, 기세를 가진 사람이라는 걸 알게 됐어요. 그 힘으로 많은 것들을 해볼 수 있었고, 그 경험들이 지금의 제가 또 다른 도전을 할 수 있게 도와주더라고요.">Movement was what helped me get to know myself. I got curious about all kinds of training, and there were days I worked out three times, sometimes eight hours in total. What I felt then was that movement let me breathe. Focusing on the sensations in my body gave me energy, and movement became my way of getting to know myself. Searching for myself through it, I realized that the person who thought she had nothing actually had energy, drive, and momentum. That strength let me try so many things, and those experiences are what help me take on new challenges today.</p>
+      <p data-ko="가진 것을 하나씩 발견하면서, 제가 붙들던 말씀의 뜻이 조금씩 와닿았어요.">As I discovered what I had, one thing at a time, the words I had been holding on to started to make sense.</p>
+      <blockquote data-ko="&quot;우리는 그가 만드신 바라 그리스도 예수 안에서 선한 일을 위하여 지으심을 받은 자니 이 일은 하나님이 전에 예비하사 우리로 그 가운데서 행하게 하려 하심이니라.&quot; (에베소서 2:10)">“For we are his workmanship, created in Christ Jesus unto good works, which God hath before ordained that we should walk in them.” (Ephesians 2:10)</blockquote>
+      <p data-ko="저는 이 말씀을, 무언가를 해내지 않아도 이미 의도를 가지고 지어진 존재라는 뜻으로 읽어요. 그래서 존재의 이유는 증명해서 얻는 것이 아니라 이미 다 가지고 있는 것을 발견하는 것이라고 믿어요.">I read this as: even without achieving anything, we were already made with intention. So I believe the reason we exist isn’t something we earn by proving ourselves. It’s something we discover we already have.</p>
+      <p data-ko="그런데 이 말씀을 제 것으로 받아들이는 데는 시간이 걸렸어요. 저는 스스로에게 잣대가 높았거든요. 제가 만든 이상과 기준이 엄격하다 보니, 저를 사랑하고 아끼는 말보다 내가 부족한 점을 먼저 봤어요. '왜 그랬을까', '내가 특이한 걸까, 특출난 걸까, 예민한 걸까' 하고요. 남을 볼 때처럼 너그럽게 저를 보지 못했고, 이상이 커질수록 이상과 현실의 간극에서 아픔과 고통을 오래 겪었어요. &quot;나를 사랑해야 다른 사람도 사랑할 수 있다&quot;는 주변 사람들의 말은 한참 뒤에야 들렸어요.">But it took time to make those words my own. I held myself to a high standard. My ideals were strict, so I saw my shortcomings before I could say anything kind to myself. “Why did I do that?” “Am I strange, or special, or just too sensitive?” I couldn’t look at myself as generously as I looked at others, and the bigger my ideals grew, the longer I hurt in the gap between them and reality. When people told me “you have to love yourself before you can love others,” it took me a long time to really hear it.</p>
+      <p data-ko="내가 나를 사랑하는 데 가까워지려면, 나를 이해할 수 있는 것들이 많아져야 하는 것 같아요. '내가 나로 존재하려고 이런 환경과 상황에서 고군분투했구나' 하고 이해가 되니까, 저에게 긍휼한 마음이 생기고 어린아이였던 나를 안아줄 수 있게 됐어요. 나에 대한 고민과 고뇌 속에서 처절하게 저를 마주하며 저를 직면하는 경험들을 한 뒤에야 가능한 일이었어요. 퇴사 후 기도원에서, 저는 처음으로 내가 여러 이유를 찾지 않고도 나 자체만으로도 충분하다는 것을 깨달았어요.">I think getting closer to loving yourself means finding more ways to understand yourself. Once I understood, “I was fighting so hard just to be myself in that place,” I felt compassion for myself and could finally hold the child I used to be. That only came after facing myself, fully and painfully, through a lot of questioning. After leaving my job, at a prayer retreat, I realized for the first time that I was enough just as I am, without needing any reason.</p>
+      <p data-ko="나를 알아가고 이해하는 일이 제게는 이렇게 어려웠기 때문에, 자신을 이해하고 자기를 찾고 싶어 하는 사람들에게도 자기 가능성을 발견할 기회가 필요하다고 생각하게 됐어요. 저는 10년 넘게 여러 운동을 하면서 알게 됐어요. 운동에는 유행이 있어서 사람들은 그때그때 유행하는 운동을 경험하지만, 결국 움직임으로 얻고 싶은 건 스스로를 이해하고 나를 더 사랑하게 되는 경험이라는 걸요.">Because knowing and understanding myself was this hard for me, I came to believe that people who want to understand and find themselves need a chance to discover their own potential, too. After more than ten years of all kinds of training, I’ve learned this: workouts come and go with trends, but what we really want from movement is to understand ourselves and come to love ourselves more.</p>
+      <p data-ko="그래서 저에게 움직임과 글쓰기는 나를 이해하는 도구예요. 지금은 움직임 강사로, 사람들이 남과 비교하지 않고 자기 몸의 감각에 집중하도록 돕고 있어요. 둘을 함께 하는 '감정 알아차리기', '연말 회고' 같은 프로그램도 진행해 왔고, 수업에서는 사람들이 자기 자신을 발견하고 자기 이해와 사랑으로 이어지는 시간을 담고 싶어요. 내가 가진 걸 발견하고 내 몸의 감각에 집중하면서, 존재만으로 충분하다는 경험을 주고 싶어요. 저는 특히 예전의 저처럼, 잘해야 인정받는다고 믿어서 자기 몸과 자기 마음을 돌볼 틈이 없는 사람들과 함께 하고 싶어요. 이후 AI를 활용해 한 번 해보고 끝나는 경험이 아니라 일상에서 매일 이어 갈 수 있는 웰니스 습관(몸과 마음을 돌보는 습관) 프로그램도 만들려고 해요.">That’s why movement and writing are my tools for understanding myself. Today, as a movement instructor, I help people focus on the sensations in their own bodies instead of comparing themselves to others. I’ve run programs that combine the two, like noticing your emotions and year-end reflection, and in every class I want to make room for people to discover themselves and grow into self-understanding and self-love. I want people to find what they already have, tune in to their bodies, and experience being enough just as they are. Most of all, I want to be with people like the old me, who believe they have to be good to be accepted and have no room left to care for their body and mind. Next, I want to use AI to build a wellness habit program, something you carry into everyday life rather than try once and forget.</p>
+      <p data-ko="제가 꿈꾸는 커뮤니티는, 제가 가진 밝은 에너지, 선한 영향력으로 사람들이 스스로를 발견하고 존재 그대로 살아갈 수 있는 곳이에요. 움직임과 글쓰기를 수단으로 서로 다른 모습이 있는 그대로 받아들여지고 건강한 에너지를 나누는 곳이고, 그 방향을 담아 시작한 것이 소밍랩이에요. 제가 만들고 싶은 건 무언가를 증명하려고 애쓰는 공간이 아니라, 나로 있는 것만으로 충분하다는 걸 경험하는 공간이에요.">The community I dream of is a place where, through my bright energy and good influence, people discover themselves and live as who they are. A place where, through movement and writing, our differences are accepted as they are and we share healthy energy. SOAMING LAB is where I started building it. What I want to create isn’t a place where you strive to prove something, but a place where you experience that being yourself is enough.</p>
+      <p class="sign">Move to Find Yourself<b>.</b></p>
+    </div>
+  </div>
 </section>
 
 <!-- ② ABOUT -->
@@ -261,11 +332,9 @@
       <div class="reveal">
         <div class="label" data-ko="소개">About</div>
         <h2 data-ko='제 가장 큰 장점은 <span class="red">에너지</span>예요.<br>바레는 그 에너지를 나누는 제 방식이에요.'><span class="red">Good energy</span> is my biggest strength.<br>Barre is how I share it.</h2>
-        <p data-ko="어릴 때 6년 동안 발레를 했고, 미국에서 고등학교를 다니면서 치어댄스팀과 육상부 단거리 선수로 뛰었어요. 그 뒤로도 웨이트 트레이닝 10년, 필라테스, 축구, F45와 팀버핏 같은 그룹 운동, 복싱, 수영, 조정까지 다양한 운동을 하며 움직임을 통해 저 자신을 알아갔어요. 그러다 바레를 만났고, 지도자 자격증을 취득해 지금은 강사로 활동하고 있어요.">I did ballet for six years as a kid, and in high school in the States I was on the cheer team and ran sprints for track. Since then I’ve been lifting for ten years and tried just about everything else: Pilates, soccer, group training like F45, boxing, swimming, rowing. Moving my body is how I got to know myself. Then I found barre, got certified, and now I teach it.</p>
+        <p data-ko="어릴 때 6년 동안 발레를 했고, 미국에서 고등학교를 다니면서 치어댄스팀과 육상부 단거리 선수로 뛰었어요. 그 뒤로도 웨이트 트레이닝 10년, 필라테스, 축구, F45와 팀버핏 같은 그룹 운동, 복싱, 수영, 조정까지 다양한 운동을 꾸준히 해왔어요. 그러다 바레를 만났고, 지도자 자격증을 취득해 지금은 강사로 활동하고 있어요.">I did ballet for six years as a kid, and in high school in the States I was on the cheer team and ran sprints for track. Since then I’ve been lifting for ten years and tried just about everything else: Pilates, soccer, group training like F45, boxing, swimming, rowing. Then I found barre, got certified, and now I teach it.</p>
         <p data-ko="수업은 주로 영어로 진행하고, 한국어로도 가능해요. 그리고 바레만 하고 끝나지 않아요. 몸을 움직인 뒤 글을 쓰며 내 마음을 들여다보는 시간도 함께 만들어요.">Most of my classes are in English, but I teach in Korean too. And class doesn’t stop at barre. After we move, we take time to write and check in with how we’re really feeling.</p>
-        <p data-ko="외국계 재단, 스타트업, 대기업에서 마케팅, 커뮤니티 빌딩, 교육, 세일즈, 사업개발을 해왔어요. 지금은 그 경험을 살려 브랜드, 기업과 함께 클래스를 설계하고 있어요.">I’ve worked in marketing, community building, education, sales, and business development at an international foundation, startups, and large companies. Now I bring that experience into designing classes with brands and companies.</p>
-        <p data-ko="더 많은 사람에게 밝고 긍정적인 에너지를 전하고, 누구나 자기 자신을 찾아갈 수 있는 웰니스 커뮤니티를 만들고 싶어 소밍랩(SOAMING LAB)을 시작하게 되었어요.">I started SOAMING LAB to share good energy with more people and build a wellness community where everyone can find their way back to themselves.</p>
-      </div>
+        <p data-ko="외국계 재단, 스타트업, 대기업에서 마케팅, 커뮤니티 빌딩, 교육, 세일즈, 사업개발을 해왔어요. 지금은 그 경험을 살려 브랜드, 기업과 함께 클래스를 설계하고 있어요.">I’ve worked in marketing, community building, education, sales, and business development at an international foundation, startups, and large companies. Now I bring that experience into designing classes with brands and companies.</p>      </div>
     </div>
   </div>
 </section>
@@ -275,7 +344,7 @@
   <div class="wrap">
     <div class="label" data-ko="클래스">Classes</div>
     <h2 data-ko='<span class="red">직접</span> 기획하고 운영한 클래스'>Classes I Built from the <span class="red">Ground Up</span></h2>
-    <p class="programs-intro" data-ko="제안부터 협찬, 모객, 수업까지 직접 맡아 왔어요. 브랜드, 커뮤니티와 함께 다양한 클래스를 만들어요.">I’ve handled everything from the pitch and sponsorships to recruiting and teaching, creating classes with brands and communities.</p>
+    <p class="programs-intro" data-ko="모든 클래스는 움직이고, 쓰고, 나를 발견하는 흐름으로 만들어요. 제안부터 협찬, 모객, 수업까지 직접 맡아 브랜드, 커뮤니티와 함께해 왔어요.">Every class follows the same flow: move, write, and discover yourself. I’ve handled everything from the pitch and sponsorships to recruiting and teaching, alongside brands and communities.</p>
 
     <div class="program-head classes"><span>When</span><span>Class</span><span>About</span></div>
     <ul class="program-list classes">
@@ -360,7 +429,7 @@
   <div class="wrap">
     <div class="label" data-ko="소밍랩과 함께하기">Let’s Collaborate</div>
     <h2 data-ko="좋은 에너지,<br>함께 나눠요.">Let’s Share<br>Good Energy.</h2>
-    <p class="contact-intro" data-ko="클래스부터 브랜드 협업, 커뮤니티 프로그램까지.<br> 아직 구체적이지 않은 아이디어도 편하게 남겨주세요.">From classes to brand collaborations and community programs.<br> Share your idea, even if you’re still figuring out the details.</p>
+    <p class="contact-intro" data-ko="나로 있는 것만으로 충분한 시간을 함께 만들어요.<br> 클래스부터 브랜드 협업, 커뮤니티 프로그램까지, 아직 구체적이지 않은 아이디어도 편하게 남겨주세요.">Let’s create time where being yourself is enough.<br> From classes to brand collaborations and community programs, share your idea, even if you’re still figuring out the details.</p>
     <div class="contact-actions">
       <button class="inquiry-cta" id="inquiryToggle" type="button" aria-expanded="false" aria-controls="inquiryPanel" data-ko="협업 문의하기">Start a collaboration</button>
     </div>
@@ -527,6 +596,16 @@
       clearTimeout(emailTimer);
       emailTimer = setTimeout(() => { emailBtn.textContent = t("Email", "이메일"); }, 2000);
     }).catch(() => {});
+  });
+
+  // 철학: 전체 이야기 펼치기
+  const storyToggle = document.getElementById("storyToggle");
+  const storyPanel = document.getElementById("storyPanel");
+  storyToggle.addEventListener("click", () => {
+    const open = storyPanel.hidden;
+    storyPanel.hidden = !open;
+    storyToggle.setAttribute("aria-expanded", String(open));
+    if (open) storyPanel.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
   });
 
   // 언어 전환: 기본은 한국어예요. 태그 안의 문구가 영어, data-ko가 한국어라서 문구를 고칠 땐 둘 다 바꾸세요
