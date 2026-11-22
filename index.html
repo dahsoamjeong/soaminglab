@@ -141,9 +141,9 @@
   .videos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px; }
   .videos video, .videos .empty { width: 100%; aspect-ratio: 9/16; object-fit: cover; background: #1a1a1a; }
   .album { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 12px; margin-top: 72px; }
-  @media (min-width: 900px) { .album { grid-template-columns: repeat(4, 1fr); gap: 16px; } }
+  @media (min-width: 900px) { .album { grid-template-columns: repeat(3, 1fr); gap: 40px 20px; } }
   .set { display: block; width: 100%; padding: 0; background: none; border: 0; color: var(--white); font: inherit; text-align: left; cursor: pointer; }
-  .set img { width: 100%; aspect-ratio: 3/4; object-fit: cover; transition: opacity .25s; }
+  .set img { width: 100%; aspect-ratio: 4/5; object-fit: cover; transition: opacity .25s; }
   .set:hover img { opacity: .75; }
   .set strong { display: block; margin-top: 12px; font-size: .95rem; font-weight: 700; line-height: 1.35; }
   .set span { display: block; margin-top: 2px; font-size: .82rem; color: rgba(255,255,255,.6); }
@@ -496,10 +496,12 @@
   addEventListener("resize", updateReels);
   updateReels();
 
-  // 사진첩: 클래스별 묶음. photos의 첫 번째 사진이 표지가 돼요. 사진은 assets/gallery 폴더에 넣고 파일명을 추가하세요
+  // 사진첩: 클래스별 묶음. cover(포스터)가 표지가 되고, 누르면 photos가 앨범처럼 넘겨져요. cover가 없으면 첫 번째 사진이 표지예요
+  // 사진·포스터는 assets/gallery 폴더에 넣고 파일명을 추가하세요. photos가 비어 있으면 포스터만 보여주고 '사진 곧 공개'로 표시돼요
   const ALBUMS = [
-    { title: "AYWA x Conch x Crycheeseburger", ko: "AYWA x Conch x Crycheeseburger", photos: ["photo19.jpg", "photo28.jpg", "photo27.jpg", "photo21.jpg", "photo22.jpg", "photo18.jpg"] },
-    { title: "Barre for the International Community", ko: "외국인과 함께한 바레 클래스", photos: ["photo11.jpg", "photo10.jpg", "photo08.jpg", "photo09.jpg", "photo26.jpg", "photo12.jpg"] },
+    { title: "Meet Yourself Through Movement in Jeju", ko: "움직임 끝에 만나는 나 in 제주", cover: "poster-jeju.jpg", photos: [] },
+    { title: "AYWA x Conch x Crycheeseburger", ko: "AYWA x Conch x Crycheeseburger", cover: "poster-aywa.jpg", photos: ["photo19.jpg", "photo28.jpg", "photo27.jpg", "photo21.jpg", "photo22.jpg", "photo18.jpg"] },
+    { title: "Barre for the International Community", ko: "외국인과 함께한 바레 클래스", cover: "poster-international.jpg", photos: ["photo11.jpg", "photo10.jpg", "photo08.jpg", "photo09.jpg", "photo26.jpg", "photo12.jpg"] },
     { title: "Barre One-Day Class", ko: "바레 원데이 클래스", photos: ["photo02.jpg", "photo01.jpg", "photo25.jpg", "photo03.jpg", "photo04.jpg", "photo05.jpg"] },
     { title: "Profile", ko: "프로필", photos: ["photo16.jpg", "photo14.jpg", "photo15.jpg", "photo17.jpg", "photo06.jpg", "photo29.jpg"] },
   ];
@@ -507,16 +509,18 @@
   const album = document.getElementById("album");
   const lb = document.getElementById("lightbox"), lbImg = document.getElementById("lbImg"), lbInfo = document.getElementById("lbInfo");
   let current = null, index = 0, opener = null;
+  const slides = a => a.photos.length ? a.photos : [a.cover];
   const show = i => {
-    index = (i + current.photos.length) % current.photos.length;
-    lbImg.src = `assets/gallery/${current.photos[index]}`;
-    lbInfo.textContent = `${t(current.title, current.ko)} · ${index + 1} / ${current.photos.length}`;
+    const list = slides(current);
+    index = (i + list.length) % list.length;
+    lbImg.src = `assets/gallery/${list[index]}`;
+    lbInfo.textContent = `${t(current.title, current.ko)} · ${index + 1} / ${list.length}`;
   };
   const closeBox = () => { lb.hidden = true; document.body.style.overflow = ""; opener?.focus(); };
   ALBUMS.forEach(a => {
     const b = document.createElement("button");
     b.className = "set";
-    b.innerHTML = `<img src="assets/gallery/${a.photos[0]}" alt="" loading="lazy"><strong data-ko="${a.ko}">${a.title}</strong><span data-ko="사진 ${a.photos.length}장">${a.photos.length} photos</span>`;
+    b.innerHTML = `<img src="assets/gallery/${a.cover || a.photos[0]}" alt="" loading="lazy"><strong data-ko="${a.ko}">${a.title}</strong>${a.photos.length ? `<span data-ko="사진 ${a.photos.length}장">${a.photos.length} photos</span>` : '<span data-ko="사진 곧 공개">Photos coming soon</span>'}`;
     b.onclick = () => { current = a; opener = b; show(0); lb.hidden = false; document.body.style.overflow = "hidden"; document.getElementById("lbClose").focus(); };
     album.appendChild(b);
   });
